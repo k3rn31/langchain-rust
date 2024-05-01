@@ -32,7 +32,7 @@ impl Default for MarkdownParser {
 }
 
 #[async_trait]
-impl OutputParser for MarkdownParser {
+impl OutputParser<String> for MarkdownParser {
     async fn parse(&self, output: &str) -> Result<String, OutputParserError> {
         let re = Regex::new(r"```(?:\w+)?\s*([\s\S]+?)\s*```")?;
         if let Some(cap) = re.captures(output) {

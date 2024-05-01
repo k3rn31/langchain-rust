@@ -21,7 +21,7 @@ pub struct ConversationalChainBuilder {
     options: Option<ChainCallOptions>,
     memory: Option<Arc<Mutex<dyn BaseMemory>>>,
     output_key: Option<String>,
-    output_parser: Option<Box<dyn OutputParser>>,
+    output_parser: Option<Box<dyn OutputParser<String>>>,
     input_key: Option<String>,
     prompt: Option<Box<dyn FormatPrompter>>,
 }
@@ -54,7 +54,10 @@ impl ConversationalChainBuilder {
         self
     }
 
-    pub fn output_parser<P: Into<Box<dyn OutputParser>>>(mut self, output_parser: P) -> Self {
+    pub fn output_parser<P: Into<Box<dyn OutputParser<String>>>>(
+        mut self,
+        output_parser: P,
+    ) -> Self {
         self.output_parser = Some(output_parser.into());
         self
     }

@@ -12,7 +12,7 @@ pub struct StuffDocumentBuilder {
     llm: Option<Box<dyn LLM>>,
     options: Option<ChainCallOptions>,
     output_key: Option<String>,
-    output_parser: Option<Box<dyn OutputParser>>,
+    output_parser: Option<Box<dyn OutputParser<String>>>,
     prompt: Option<Box<dyn FormatPrompter>>,
 }
 impl StuffDocumentBuilder {

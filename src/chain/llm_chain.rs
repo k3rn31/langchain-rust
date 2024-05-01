@@ -18,7 +18,7 @@ pub struct LLMChainBuilder {
     llm: Option<Box<dyn LLM>>,
     output_key: Option<String>,
     options: Option<ChainCallOptions>,
-    output_parser: Option<Box<dyn OutputParser>>,
+    output_parser: Option<Box<dyn OutputParser<String>>>,
 }
 
 impl LLMChainBuilder {
@@ -51,7 +51,10 @@ impl LLMChainBuilder {
         self
     }
 
-    pub fn output_parser<P: Into<Box<dyn OutputParser>>>(mut self, output_parser: P) -> Self {
+    pub fn output_parser<P: Into<Box<dyn OutputParser<String>>>>(
+        mut self,
+        output_parser: P,
+    ) -> Self {
         self.output_parser = Some(output_parser.into());
         self
     }
@@ -87,7 +90,7 @@ pub struct LLMChain {
     prompt: Box<dyn FormatPrompter>,
     llm: Box<dyn LLM>,
     output_key: String,
-    output_parser: Box<dyn OutputParser>,
+    output_parser: Box<dyn OutputParser<String>>,
 }
 
 #[async_trait]

@@ -21,7 +21,7 @@ pub struct SQLDatabaseChainBuilder {
     top_k: Option<usize>,
     database: Option<SQLDatabase>,
     output_key: Option<String>,
-    output_parser: Option<Box<dyn OutputParser>>,
+    output_parser: Option<Box<dyn OutputParser<String>>>,
 }
 
 impl SQLDatabaseChainBuilder {
@@ -46,7 +46,10 @@ impl SQLDatabaseChainBuilder {
         self
     }
 
-    pub fn output_parser<P: Into<Box<dyn OutputParser>>>(mut self, output_parser: P) -> Self {
+    pub fn output_parser<P: Into<Box<dyn OutputParser<String>>>>(
+        mut self,
+        output_parser: P,
+    ) -> Self {
         self.output_parser = Some(output_parser.into());
         self
     }

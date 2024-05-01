@@ -21,7 +21,7 @@ impl Default for SimpleParser {
 }
 
 #[async_trait]
-impl OutputParser for SimpleParser {
+impl OutputParser<String> for SimpleParser {
     async fn parse(&self, output: &str) -> Result<String, OutputParserError> {
         if self.trim {
             Ok(output.trim().to_string())
